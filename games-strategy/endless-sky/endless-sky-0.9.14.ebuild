@@ -4,7 +4,7 @@
 EAPI=7
 
 PYTHON_COMPAT=( python3_{7..9} )
-inherit python-any-r1 eutils gnome2-utils scons-utils
+inherit python-any-r1 eutils gnome2-utils scons-utils xdg-utils
 
 DESCRIPTION="Space exploration, trading & combat in the tradition of Terminal Velocity"
 HOMEPAGE="https://endless-sky.github.io"
@@ -25,6 +25,9 @@ DEPEND="${RDEPEND}"
 src_prepare() {
 	sed -i 's/\(.*flags += \["\)-O3\("\]\)/\1\2/g' SConstruct || die
 	sed -i 's#env.Install("$DESTDIR$PREFIX/games", sky)#env.Install("$DESTDIR$PREFIX/bin", sky)#g' SConstruct || die
+	sed -i 's#env.Install("$DESTDIR$PREFIX/share/appdata", "endless-sky.appdata.xml")#env.Install("$DESTDIR$PREFIX/share/metainfo", "endless-sky.appdata.xml")#g' SConstruct || die
+	sed -i 's#"$DESTDIR$PREFIX/share/man/man6/endless-sky.6.gz",#"$DESTDIR$PREFIX/share/man/man6/endless-sky.6",#g' SConstruct || die
+	sed -i 's#"gzip -c $SOURCE > $TARGET")#"cp $SOURCE $TARGET")#g' SConstruct || die
 	eapply_user
 }
 
@@ -37,10 +40,12 @@ src_install() {
 }
 
 pkg_postinst() {
+	gnome2_icon_cache_update
 	gtk-update-icon-cache
 }
 
 pkg_postrm() {
+	gnome2_icon_cache_update
 	gtk-update-icon-cache
 }
 
