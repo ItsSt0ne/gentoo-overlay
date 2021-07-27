@@ -39,17 +39,12 @@ src_install() {
 	escons PREFIX="${D}/usr/" install
 }
 
-pkg_postinst() {
-	gnome2_icon_cache_update
-	gtk-update-icon-cache
-}
-
 pkg_postrm() {
-	gnome2_icon_cache_update
-	gtk-update-icon-cache
+	xdg_icon_cache_update
 }
 
 pkg_postinst() {
+	xdg_icon_cache_update
 	einfo "Endless Sky provides high-res sprites for high-dpi screens."
 	einfo "If you want to use them, download"
 	einfo
