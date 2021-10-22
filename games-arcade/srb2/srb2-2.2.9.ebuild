@@ -52,7 +52,7 @@ src_compile(){
 	if ! use mixer ;then
 		OPTIONS="${OPTIONS} NOMIXER=1"
 	fi
-	if ! use openl ;then
+	if ! use opengl ;then
 		OPTIONS="${OPTIONS} NOHW=1"
 	fi
 	if ! use curl  ;then
