@@ -13,7 +13,7 @@ DESCRIPTION="GTK-based mixer application (and more) for JACK"
 HOMEPAGE="https://rdio.space/jackmixer/"
 SRC_URI="https://rdio.space/jackmixer/tarballs/jack_mixer-${PV}.tar.xz"
 
-LICENSE="GPL-2"
+LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~riscv ~sparc ~x86"
 IUSE=""
