@@ -1035,7 +1035,7 @@ src_install() {
 
 	# Install menu
 	local app_name="GNU IceCat"
-	local desktop_file="${FILESDIR}/icon/${PN}-r2.desktop"
+	local desktop_file="${FILESDIR}/icon/${PN}-r3.desktop"
 	local desktop_filename="${PN}.desktop"
 	local exec_command="${PN}"
 	local icon="${PN}"

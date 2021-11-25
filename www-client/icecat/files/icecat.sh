@@ -46,11 +46,8 @@ DESKTOP_FILE="icecat"
 ##
 if @DEFAULT_WAYLAND@ && [[ -z ${MOZ_DISABLE_WAYLAND} ]]; then
 	if [[ -n "$WAYLAND_DISPLAY" ]]; then
-		DESKTOP_FILE="icecat-wayland"
 		export MOZ_ENABLE_WAYLAND=1
 	fi
-elif [[ -n ${MOZ_DISABLE_WAYLAND} ]]; then
-	DESKTOP_FILE="icecat-x11"
 fi
 
 ##
@@ -125,5 +122,5 @@ if [[ $@ != *"--name "* ]]; then
 fi
 
 # Run the browser
-exec ${MOZ_PROGRAM} "$@"
+exec ${MOZ_PROGRAM} "${@}"
 
