@@ -1109,7 +1109,15 @@ pkg_postinst() {
 		elog "Since ${PN}-91.0 we no longer install multiple shortcuts for"
 		elog "each supported display protocol.  Instead we will only install"
 		elog "one generic GNU ${PN^} shortcut."
-		elog "If you still want to be able to select between running Mozilla ${PN^}"
+		elog "If you still want to be able to select between running Icecat ${PN^}"
 		elog "on X11 or Wayland, you have to re-create these shortcuts on your own."
 	fi
+
+	elog "Cloudflare browser checks are broken with GNU IceCats anti fingerprinting measures."
+	elog "You can fix cloudflare browser checks by undoing them in about:config like below:"
+	# Specifying (X11) is necessary for it to work, even in a Wayland session
+	elog "   general.appversion.override: 91.0 (X11)"
+	elog "   general.oscpu.override: Linux x86_64"
+	elog "   general.platform.override: Linux x86_64"
+
 }
