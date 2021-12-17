@@ -1,9 +1,11 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# Ebuild based src_prepare's ebuilds, which are based on Firefox ebuilds in Gentoo
+
+# Ebuild is based on the Firefox ebuilds in the main repo
 
 EAPI="7"
 
+# Using Gentoos firefox patches as system libraries and lto are quite nice
 FIREFOX_PATCHSET="firefox-91esr-patches-01.tar.xz"
 
 LLVM_MAX_SLOT=13
@@ -24,19 +26,23 @@ PATCH_URIS=(
 )
 
 SRC_URI="
-       !buildtarball? ( icecat-${PV}-gnu1.tar.bz2 )
-       ${PATCH_URIS[@]}
+	!buildtarball? ( icecat-${PV}-gnu1.tar.bz2 )
+	${PATCH_URIS[@]}
 "
 
 DESCRIPTION="GNU IceCat Web Browser"
 HOMEPAGE="https://www.gnu.org/software/gnuzilla/"
 
-KEYWORDS="~amd64 ~arm64 ~ppc64 ~x86"
+KEYWORDS="~amd64"
 
 SLOT="0"
 LICENSE="MPL-2.0 GPL-2 LGPL-2.1"
+IUSE="+clang cpu_flags_arm_neon dbus debug +buildtarball geckodriver
+	hardened hwaccel jack lto +openh264 pgo pulseaudio screencast selinux
+	+system-av1 +system-harfbuzz +system-icu +system-jpeg +system-libevent
+	+system-libvpx +system-webp wayland wifi"
 
-IUSE="+buildtarball +clang cpu_flags_arm_neon dbus debug hardened hwaccel"
+IUSE="+clang cpu_flags_arm_neon dbus debug +buildtarball hardened hwaccel"
 IUSE+=" jack lto +openh264 pgo pulseaudio sndio selinux"
 IUSE+=" +system-av1 +system-harfbuzz +system-icu +system-jpeg +system-libevent +system-libvpx +system-webp"
 IUSE+=" wayland wifi"
@@ -92,9 +98,9 @@ BDEPEND="${PYTHON_DEPS}
 			)
 		)
 	)
-	buildtarball? ( ~www-client/makeicecat-"${PV}"[buildtarball] )
 	amd64? ( >=dev-lang/nasm-2.13 )
-	x86? ( >=dev-lang/nasm-2.13 )"
+	x86? ( >=dev-lang/nasm-2.13 )
+	buildtarball? ( ~www-client/makeicecat-"${PV}"[buildtarball] )"
 
 CDEPEND="
 	>=dev-libs/nss-3.68
@@ -269,6 +275,7 @@ mozilla_set_globals() {
 
 		IUSE+=" l10n_${xflag/[_@]/-}"
 	done
+
 }
 mozilla_set_globals
 
@@ -288,33 +295,32 @@ moz_clear_vendor_checksums() {
 }
 
 moz_build_xpi() {
-      debug-print-function ${FUNCNAME} "$@"
+	debug-print-function ${FUNCNAME} "$@"
 
-      local MOZ_TOO_REGIONALIZED_FOR_L10N=(
-              fy-NL ga-IE gu-IN hi-IN hy-AM nb-NO ne-NP nn-NO pa-IN sv-SE
-      )
+	local MOZ_TOO_REGIONALIZED_FOR_L10N=(
+		fy-NL ga-IE gu-IN hi-IN hy-AM nb-NO ne-NP nn-NO pa-IN sv-SE
+	)
 
-      cd "${BUILD_DIR}"/browser/locales || die
-      local lang xflag
-      for lang in "${MOZ_LANGS[@]}"; do
-              # en and en_US are handled internally
-              if [[ ${lang} == en ]] || [[ ${lang} == en-US ]] ; then
-                      continue
-              fi
+	cd "${BUILD_DIR}"/browser/locales || die
+	local lang xflag
+	for lang in "${MOZ_LANGS[@]}"; do
+		# en and en_US are handled internally
+		if [[ ${lang} == en ]] || [[ ${lang} == en-US ]] ; then
+			continue
+		fi
 
-              # strip region subtag if $lang is in the list
-              if has ${lang} "${MOZ_TOO_REGIONALIZED_FOR_L10N[@]}" ; then
-                      xflag=${lang%%-*}
-              else
-                      xflag=${lang}
-              fi
+		# strip region subtag if $lang is in the list
+		if has ${lang} "${MOZ_TOO_REGIONALIZED_FOR_L10N[@]}" ; then
+			xflag=${lang%%-*}
+		else
+			xflag=${lang}
+		fi
 
-              if use l10n_"${xflag}"; then
-                      emake langpack-"${lang}" LOCALE_MERGEDIR=.
-              fi
-      done
+		if use l10n_"${xflag}"; then
+			emake langpack-"${lang}" LOCALE_MERGEDIR=.
+		fi
+	done
 }
-
 
 moz_install_xpi() {
 	debug-print-function ${FUNCNAME} "$@"
@@ -426,16 +432,15 @@ pkg_pretend() {
 }
 
 pkg_nofetch() {
-        if ! use buildtarball; then
-                einfo "You have not enabled buildtarball use flag, therefore you will have to"
-                einfo "build the tarball manually and place it in your distfiles directory."
-                einfo "You may find the script for building the tarball here"
-                einfo "https://git.savannah.gnu.org/cgit/gnuzilla.git/, but make sure it is the"
-                einfo "right version."
-                einfo "The output of the script should be icecat-"${PV}"-gnu1.tar.bz2"
-        fi
+	if ! use buildtarball; then
+		einfo "You have not enabled buildtarball use flag, therefore you will have to"
+		einfo "build the tarball manually and place it in your distfiles directory."
+		einfo "You may find the script for building the tarball here"
+		einfo "https://git.savannah.gnu.org/cgit/gnuzilla.git/, but make sure it is the"
+		einfo "right version."
+		einfo "The output of the script should be icecat-"${PV}"-gnu1.tar.bz2"
+	fi
 }
-
 
 pkg_setup() {
 	if [[ ${MERGE_TYPE} != binary ]] ; then
@@ -545,18 +550,16 @@ pkg_setup() {
 		# Ensure we use C locale when building, bug #746215
 		export LC_ALL=C
 	fi
-
 	linux-info_pkg_setup
 }
 
 src_unpack() {
-		if use buildtarball; then
-                unpack /usr/src/makeicecat-"${PV}"/output/icecat-"${PV}"-gnu1.tar.bz2 || eerror "Tarball is missing, check that www-client/makeicecat has use flag buildtarball enabled."
-        else
-                unpack icecat-"${PV}"-gnu1.tar.bz2
-        fi
-        unpack "${FIREFOX_PATCHSET}"
-
+	if use buildtarball; then
+		unpack /usr/src/makeicecat-"${PV}"/output/icecat-"${PV}"-gnu1.tar.bz2 || eerror "Tarball is missing, check that www-client/makeicecat has use flag buildtarball enabled."
+	else
+		unpack icecat-"${PV}"-gnu1.tar.bz2
+	fi
+	unpack "${FIREFOX_PATCHSET}"
 }
 
 src_prepare() {
@@ -666,6 +669,7 @@ src_configure() {
 		--allow-addon-sideload \
 		--disable-cargo-incremental \
 		--disable-crashreporter \
+		--disable-eme \
 		--disable-install-strip \
 		--disable-strip \
 		--disable-updater \
@@ -679,6 +683,7 @@ src_configure() {
 		--target="${CHOST}" \
 		--without-ccache \
 		--with-intl-api \
+		--with-l10n-base="${S}"/l10n \
 		--with-libclang-path="$(llvm-config --libdir)" \
 		--with-system-nspr \
 		--with-system-nss \
@@ -687,9 +692,7 @@ src_configure() {
 		--with-toolchain-prefix="${CHOST}-" \
 		--with-unsigned-addon-scopes=app,system \
 		--x-includes="${SYSROOT}${EPREFIX}/usr/include" \
-		--x-libraries="${SYSROOT}${EPREFIX}/usr/$(get_libdir)" \
-		--disable-eme \
-		--with-l10n-base="${S}"/l10n
+		--x-libraries="${SYSROOT}${EPREFIX}/usr/$(get_libdir)"
 
 	if ! use x86 && [[ ${CHOST} != armv*h* ]] ; then
 		mozconfig_add_options_ac '' --enable-rust-simd
@@ -976,12 +979,12 @@ src_install() {
 	# Set installDistroAddons to true so that language packs work
 	cat >>"${GENTOO_PREFS}" <<-EOF || die "failed to set extensions.installDistroAddons pref"
 	pref("extensions.installDistroAddons",     true);
-	pref("extensions.langpacks.signatures.required",        false);
+	pref("extensions.langpacks.signatures.required",	false);
 	EOF
 
 	# Disable signatures for language packs so that unsigned just built language packs work
 	cat >>"${GENTOO_PREFS}" <<-EOF || die "failed to disable langpacks signatures"
-	pref("extensions.langpacks.signatures.required",        false);
+	pref("extensions.langpacks.signatures.required",	false);
 	EOF
 
 	# Force hwaccel prefs if USE=hwaccel is enabled
@@ -1060,7 +1063,7 @@ src_install() {
 
 	# Install wrapper script
 	[[ -f "${ED}/usr/bin/${PN}" ]] && rm "${ED}/usr/bin/${PN}"
-	newbin "${FILESDIR}/${PN}.sh" ${PN}
+	newbin "${FILESDIR}/${PN}-r1.sh" ${PN}
 
 	# Update wrapper
 	sed -i \
@@ -1095,24 +1098,6 @@ pkg_preinst() {
 pkg_postinst() {
 	xdg_pkg_postinst
 
-	if use pulseaudio && has_version ">=media-sound/apulse-0.1.12-r4" ; then
-		elog "Apulse was detected at merge time on this system and so it will always be"
-		elog "used for sound.  If you wish to use pulseaudio instead please unmerge"
-		elog "media-sound/apulse."
-		elog
-	fi
-
-	local show_shortcut_information
-
-	if [[ -n "${show_shortcut_information}" ]] ; then
-		elog
-		elog "Since ${PN}-91.0 we no longer install multiple shortcuts for"
-		elog "each supported display protocol.  Instead we will only install"
-		elog "one generic GNU ${PN^} shortcut."
-		elog "If you still want to be able to select between running Icecat ${PN^}"
-		elog "on X11 or Wayland, you have to re-create these shortcuts on your own."
-	fi
-
 	elog "Cloudflare browser checks are broken with GNU IceCats anti fingerprinting measures."
 	elog "You can fix cloudflare browser checks by undoing them in about:config like below:"
 	# Specifying (X11) is necessary for it to work, even in a Wayland session
@@ -1120,4 +1105,18 @@ pkg_postinst() {
 	elog "   general.oscpu.override: Linux x86_64"
 	elog "   general.platform.override: Linux x86_64"
 
+	if use pulseaudio && has_version ">=media-sound/apulse-0.1.12-r4" ; then
+		elog "Apulse was detected at merge time on this system and so it will always be"
+		elog "used for sound.  If you wish to use pulseaudio instead please unmerge"
+		elog "media-sound/apulse."
+		elog
+	fi
+	if [[ -n "${show_shortcut_information}" ]] ; then
+		elog
+		elog "Since ${PN}-91.0 we no longer install multiple shortcuts for"
+		elog "each supported display protocol.  Instead we will only install"
+		elog "one generic Mozilla ${PN^} shortcut."
+		elog "If you still want to be able to select between running Mozilla ${PN^}"
+		elog "on X11 or Wayland, you have to re-create these shortcuts on your own."
+	fi
 }
