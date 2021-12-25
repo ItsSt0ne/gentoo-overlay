@@ -19,10 +19,10 @@ RDEPEND="
 inherit kernel-2
 detect_version
 
-DESCRIPTION="Full XanMod sources with cacule option and including the Gentoo patchset "
+DESCRIPTION="Full XanMod sources with Gentoo and realtime patchsets"
 HOMEPAGE="https://xanmod.org"
 LICENSE+=" CDDL"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 XANMOD_VERSION="2"
 RT_VERSION="23"
 XANMOD_URI="https://github.com/xanmod/linux/releases/download"
