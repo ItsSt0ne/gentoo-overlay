@@ -23,7 +23,7 @@ DESCRIPTION="Full XanMod sources with Gentoo patchsets"
 HOMEPAGE="https://xanmod.org"
 LICENSE+=" CDDL"
 KEYWORDS="~amd64 ~x86"
-XANMOD_VERSION="1"
+XANMOD_VERSION="2"
 XANMOD_URI="https://github.com/xanmod/linux/releases/download"
 SRC_URI="
 	${KERNEL_BASE_URI}/linux-${KV_MAJOR}.${KV_MINOR}.tar.xz
