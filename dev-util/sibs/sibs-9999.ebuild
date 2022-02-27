@@ -21,8 +21,9 @@ DEPEND="
 	"
 RDEPEND="
 	${DEPEND}
+	dev-util/ccache
 	"
 
 src_install() {
-	install -Dm755 "${BUILD_DIR}/sibs" "${D}/usr/bin/sibs" || die "Install failed."
+	dobin "${BUILD_DIR}/sibs"
 }
