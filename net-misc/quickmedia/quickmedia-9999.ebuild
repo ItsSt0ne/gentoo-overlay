@@ -44,7 +44,7 @@ src_install() {
 	SIBS_PLATFORM=$(sibs platform)
 	dobin "video_player/sibs-build/${SIBS_PLATFORM}/release/quickmedia-video-player"
 	dobin "sibs-build/${SIBS_PLATFORM}/release/quickmedia"
-	ln -s "${ED}/usr/bin/quickmedia" "${ED}/usr/bin/qm" || die
+	newbin "sibs-build/${SIBS_PLATFORM}/release/quickmedia" qm
 
 	insinto /usr/share/quickmedia
 	doins boards.json
