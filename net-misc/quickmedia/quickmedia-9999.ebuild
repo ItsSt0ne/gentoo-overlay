@@ -2,13 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+EGIT_CLONE_TYPE="shallow"
 
 inherit git-r3
 
 DESCRIPTION="A rofi inspired native client for web services. Supports youtube, peertube, lbry, soundcloud, nyaa.si, 4chan, matrix, saucenao, hotexamples, anilist and several manga sites"
 HOMEPAGE="https://git.dec05eba.com/QuickMedia/about"
 SRC_URI=""
-EGIT_REPO_URI="git://git.dec05eba.com/QuickMedia"
+EGIT_REPO_URI="https://repo.dec05eba.com/QuickMedia"
 
 LICENSE="GPL-3"
 SLOT="0"

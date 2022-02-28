@@ -10,7 +10,7 @@ inherit cmake git-r3
 DESCRIPTION="A simple cross-platform build system and package manager for c, c++ and zig. Inspired by rusts cargo"
 HOMEPAGE="https://git.dec05eba.com/sibs/about/"
 SRC_URI=""
-EGIT_REPO_URI="git://git.dec05eba.com/sibs"
+EGIT_REPO_URI="https://repo.dec05eba.com/sibs"
 
 LICENSE="GPL-3"
 SLOT="0"
