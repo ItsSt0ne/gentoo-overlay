@@ -57,4 +57,3 @@ src_install() {
 		doins "$file"
 	done
 }
-#media-gfx/waifu2x-ncnn-vulkan
