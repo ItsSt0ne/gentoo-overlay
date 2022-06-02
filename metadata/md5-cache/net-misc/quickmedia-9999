@@ -1,0 +1,14 @@
+BDEPEND=dev-util/sibs >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile install unpack
+DEPEND=media-libs/libglvnd x11-libs/libX11 x11-libs/libXrandr media-video/mpv[libmpv]
+DESCRIPTION=A rofi inspired native client for web services. Supports youtube, peertube, lbry, soundcloud, nyaa.si, 4chan, matrix, saucenao, hotexamples, anilist and several manga sites
+EAPI=7
+HOMEPAGE=https://git.dec05eba.com/QuickMedia/about
+INHERIT=git-r3
+IUSE=+ffmpeg libnotify
+LICENSE=GPL-3
+PROPERTIES=live
+RDEPEND=media-libs/libglvnd x11-libs/libX11 x11-libs/libXrandr media-video/mpv[libmpv] net-misc/curl media-fonts/noto x11-misc/xdg-utils net-misc/youtube-dl ffmpeg? ( media-video/ffmpeg ) libnotify? ( x11-libs/libnotify )
+SLOT=0
+_eclasses_=git-r3	b9ac6f96d2a88edb5b351df634dc5e53
+_md5_=67dc8203310d10fc2cba091098be3923

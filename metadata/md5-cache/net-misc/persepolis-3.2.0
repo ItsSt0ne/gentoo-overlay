@@ -1,0 +1,16 @@
+BDEPEND=python_targets_python3_8? ( >=dev-lang/python-3.8.12_p1-r1:3.8[sqlite] ) python_targets_python3_9? ( >=dev-lang/python-3.9.9-r1:3.9[sqlite] ) python_targets_python3_8? ( >=dev-lang/python-3.8.12_p1-r1:3.8[sqlite] ) python_targets_python3_9? ( >=dev-lang/python-3.9.9-r1:3.9[sqlite] ) >=dev-python/setuptools-42.0.2[python_targets_python3_8(-)?,python_targets_python3_9(-)?]
+DEFINED_PHASES=compile configure install postinst postrm prepare test
+DEPEND=dev-python/psutil[python_targets_python3_8(-)?,python_targets_python3_9(-)?] dev-python/requests[python_targets_python3_8(-)?,python_targets_python3_9(-)?] dev-python/PyQt5[python_targets_python3_8(-)?,python_targets_python3_9(-)?,svg,gui,network] dev-python/setproctitle[python_targets_python3_8(-)?,python_targets_python3_9(-)?] net-misc/aria2 || ( net-misc/youtube-dl[python_targets_python3_8(-)?,python_targets_python3_9(-)?] net-misc/yt-dlp[python_targets_python3_8(-)?,python_targets_python3_9(-)?] ) x11-libs/libnotify x11-themes/sound-theme-freedesktop
+DESCRIPTION=Qt-based download manager and frontend for aria2 with lots of features.
+EAPI=7
+HOMEPAGE=https://persepolisdm.github.io
+INHERIT=distutils-r1 xdg-utils
+IUSE=gtk python_targets_python3_8 python_targets_python3_9
+KEYWORDS=~amd64 ~ppc64 ~x86
+LICENSE=GPL-3
+RDEPEND=dev-python/psutil[python_targets_python3_8(-)?,python_targets_python3_9(-)?] dev-python/requests[python_targets_python3_8(-)?,python_targets_python3_9(-)?] dev-python/PyQt5[python_targets_python3_8(-)?,python_targets_python3_9(-)?,svg,gui,network] dev-python/setproctitle[python_targets_python3_8(-)?,python_targets_python3_9(-)?] net-misc/aria2 || ( net-misc/youtube-dl[python_targets_python3_8(-)?,python_targets_python3_9(-)?] net-misc/yt-dlp[python_targets_python3_8(-)?,python_targets_python3_9(-)?] ) x11-libs/libnotify x11-themes/sound-theme-freedesktop gtk? ( x11-themes/adwaita-qt ) python_targets_python3_8? ( >=dev-lang/python-3.8.12_p1-r1:3.8[sqlite] ) python_targets_python3_9? ( >=dev-lang/python-3.9.9-r1:3.9[sqlite] )
+REQUIRED_USE=|| ( python_targets_python3_8 python_targets_python3_9 )
+SLOT=0
+SRC_URI=https://github.com/persepolisdm/persepolis/archive/3.2.0.tar.gz -> persepolis-3.2.0.tar.gz
+_eclasses_=multibuild	d26d81f242cb193d899a72bca423d0bd	multiprocessing	b4e253ab22cef7b1085e9b67c7a3b730	toolchain-funcs	badd6e329e1f3e6bee99b35bf8763ce8	multilib	4a33c9008e5ee30cb8840a3fdc24df2b	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	python-utils-r1	6d4bdf68f7dcd9a5491613be687ae665	python-r1	8638751691200e941f26fe0ac3aef1d1	distutils-r1	0827198943c9287a83534fd8cbe3d897	xdg-utils	fffb53a53cf17c9c0c998a3c0a590c7e
+_md5_=25468808730a29b4bc2643c2d276b14e
