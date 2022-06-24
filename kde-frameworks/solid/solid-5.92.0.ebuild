@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -33,10 +33,6 @@ BDEPEND="
 	sys-devel/flex
 	nls? ( >=dev-qt/linguist-tools-${QTMIN}:5 )
 "
-
-PATCHES=(
-	"${FILESDIR}/${P}-properly-round-battery-capacity.patch" # KDE-bug 448372
-)
 
 src_configure() {
 	local mycmakeargs=(
