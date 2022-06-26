@@ -37,6 +37,8 @@ RDEPEND="${DEPEND}
 		dev-python/dbus-python[${PYTHON_USEDEP}]
 	)
 	dev-python/distro[${PYTHON_USEDEP}]
+	dev-python/send2trash[${PYTHON_USEDEP}]
+	dev-python/pychromecast[${PYTHON_USEDEP}]
 "
 
 # Just in case someone renames the ebuild
@@ -67,7 +69,7 @@ src_compile() {
 }
 
 src_install() {
-	python -m installer --destdir="${ED}" "dist/*.whl"
+	python -m installer --destdir=${ED} dist/*.whl
 	rm -r "${ED}/usr/lib/python3.10/site-packages/etc/"
 	#doins "${ED}/etc/xdg/autostart"
 	mv "${ED}/usr/share/doc/${MY_P}" "${ED}/usr/share/doc/${P}"
