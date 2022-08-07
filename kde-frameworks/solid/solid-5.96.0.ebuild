@@ -3,14 +3,14 @@
 
 EAPI=8
 
-QTMIN=5.15.2
+QTMIN=5.15.4
 VIRTUALX_REQUIRED="test"
-inherit ecm kde.org optfeature
+inherit ecm frameworks.kde.org optfeature
 
 DESCRIPTION="Provider for platform independent hardware discovery, abstraction and management"
 
 LICENSE="LGPL-2.1+"
-KEYWORDS="amd64 ~arm arm64 ~ppc64 ~riscv x86"
+KEYWORDS="amd64 ~arm arm64 ~loong ~ppc64 ~riscv x86"
 IUSE="ios nls"
 
 RDEPEND="

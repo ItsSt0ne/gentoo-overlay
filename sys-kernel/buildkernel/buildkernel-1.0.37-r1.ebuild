@@ -26,7 +26,7 @@ RDEPEND="${DEPEND}
 	>=app-crypt/sbsigntools-0.6-r1
 	plymouth? ( >=sys-boot/plymouth-0.8.8-r4[gdm(+),libkms,pango] )
 	>=sys-kernel/genkernel-next-58[cryptsetup,gpg,plymouth?]
-	=app-crypt/staticgpg-1.4.16-r1
+	=app-crypt/staticgpg-1.4.16-r2
 	>=sys-boot/efibootmgr-0.5.4-r1
 	>=sys-apps/debianutils-4.9.1[installkernel(+)]"
 
