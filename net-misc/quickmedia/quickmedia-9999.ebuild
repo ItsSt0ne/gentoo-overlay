@@ -49,7 +49,7 @@ src_install() {
 
 	insinto /usr/share/quickmedia
 	doins boards.json
-	doins input.conf
+	doins -r mpv/*
 	doins -r {images,icons,shaders,themes}
 
 	insinto /usr/share/applications
