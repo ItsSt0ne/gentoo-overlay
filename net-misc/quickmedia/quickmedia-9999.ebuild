@@ -31,7 +31,7 @@ RDEPEND="
 	net-misc/curl
 	media-fonts/noto
 	x11-misc/xdg-utils
-	net-misc/youtube-dl
+	net-misc/yt-dlp
 	ffmpeg? ( media-video/ffmpeg )
 	libnotify? ( x11-libs/libnotify )
 	"
